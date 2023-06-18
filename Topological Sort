@@ -1,0 +1,35 @@
+// coding ninjas studio solution
+
+#include <bits/stdc++.h> 
+vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e)  {
+    // Write your code here
+    vector<int> adj[v], indegree(v, 0);
+    for(auto i: edges)
+    {
+        int u= i[0];
+        int v= i[1];
+        adj[u].push_back(v);
+        indegree[v]++;
+    }
+
+    queue<int> Q;
+
+    for(int i=0; i<v; i++)
+    {
+        if(indegree[i]==0) Q.push(i);
+    }
+
+    vector<int> topo;
+    while(!Q.empty())
+    {
+        int node= Q.front();
+        topo.push_back(node);
+        Q.pop();
+        for(auto i: adj[node])
+        {
+            indegree[i]--;
+            if(indegree[i]==0) Q.push(i);
+        }
+    }
+    return topo;
+}
