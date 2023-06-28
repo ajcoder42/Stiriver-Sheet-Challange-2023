@@ -1,0 +1,10 @@
+//coding ninjas studio solution
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int removeDuplicates(vector<int> &arr, int n) {
+	// Write your code here.
+	sort(arr.begin(), arr.end());
+	return distance(arr.begin(), unique(arr.begin(), arr.begin()+n));
+}
