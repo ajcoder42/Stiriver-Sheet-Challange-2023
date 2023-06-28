@@ -1,0 +1,43 @@
+//Coding Ninjas studio solution
+
+// int rec(int idx, int w, vector<int> &values, vector<int> &weights, vector<vector<int>> &dp)
+// {
+//    if(idx == 0)
+//    {
+// 	   if(weights[idx] <= w) return values[idx];
+// 	   return 0;
+//    }
+//    if(dp[idx][w] != -1) return dp[idx][w];
+//    int take= 0;
+//    if(w >= weights[idx]) take= values[idx] + rec(idx-1, w-weights[idx], values, weights, dp);
+//    int notTake= rec(idx-1, w, values, weights, dp);
+//    return dp[idx][w]= max(take, notTake);
+// }
+
+int maxProfit(vector<int> &values, vector<int> &weights, int n, int w)
+{
+	// Write your code here
+	//Resursion + Memoization TC-> O(n*w) & SC-> O(n*w) + O(n)
+	// vector<vector<int>> dp(n, vector<int>(w + 1, -1));
+	// return rec(n-1, w, values, weights, dp);
+
+	//Tabulation TC-> O(n*w) & SC-> O(n*w)
+	vector<vector<int>> dp(n, vector<int>(w + 1, 0));
+	//base Case for all idx=0
+	for(int weight=weights[0]; weight<w+1; weight++)
+	{
+		dp[0][weight]= values[0];
+	}
+	
+	for(int idx=1; idx<n; idx++)
+	{
+		for(int weight= 0; weight < w+1; weight++)
+		{
+			int take= 0;
+			if(weight >= weights[idx]) take= values[idx] + dp[idx-1][weight-weights[idx]];
+			int notTake= dp[idx-1][weight];
+			dp[idx][weight]= max(take, notTake);
+		}
+	}
+	return dp[n-1][w];
+}
