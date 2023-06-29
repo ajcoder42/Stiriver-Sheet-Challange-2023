@@ -1,0 +1,35 @@
+//coding ninjas studio solution
+
+#include <bits/stdc++.h> 
+
+template <class T>
+class Comparator{
+    public: 
+    bool operator()(T &a, T &b)
+    {
+        if (a[1] == b[1]) 
+        return a[2] < b[2];
+        return a[1] < b[1];
+    }
+};
+
+
+vector<int> maximumMeetings(vector<int> &start, vector<int> &end) {
+    // Write your code here.
+   vector<vector<int>> vp;
+   int n= start.size();
+   for(int i=0; i<n; i++) vp.push_back({start[i], end[i], i+1});
+   sort(vp.begin(), vp.end(), Comparator<vector<int>>());
+   vector<int> ans;
+   ans.push_back(vp[0][2]);
+   int endTime= vp[0][1];
+   for(int i=1; i<n; i++)
+   {
+        if(endTime < vp[i][0])
+        {
+            ans.push_back(vp[i][2]);
+            endTime= vp[i][1];
+        }
+   }
+   return ans;
+}
