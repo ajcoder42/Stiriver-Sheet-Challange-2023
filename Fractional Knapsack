@@ -1,0 +1,35 @@
+//coding ninjas studio solution
+
+#include <bits/stdc++.h> 
+
+template <class T>
+class Comparator{
+    public:
+    bool operator()(T &a, T &b)
+    {
+        return (double)a.second/(double)a.first > (double)b.second/(double)b.first;
+    }
+};
+
+
+double maximumValue (vector<pair<int, int>>& items, int n, int w)
+{
+    // Write your code here.
+    // ITEMS contains {weight, value} pairs.
+    sort(items.begin(), items.end(), Comparator<pair<int,int>>());
+    double ans= 0.00;
+    
+    for(int i=0; i<n; i++)
+    {
+        if(w >= items[i].first) 
+        {
+            ans+= items[i].second;
+            w-= items[i].first;
+            continue;
+        }
+        double value= ((double)items[i].second / (double)items[i].first)*(double)w;
+        ans+= value;
+        break;
+    }
+    return ans;
+}
