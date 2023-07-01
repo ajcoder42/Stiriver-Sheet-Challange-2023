@@ -1,0 +1,33 @@
+//coding ninjas studio solution
+
+#include<bits/stdc++.h>
+template <class T>
+class Comparator{
+    public: 
+    bool operator()(T &a, T &b)
+    {
+        return a[1] < b[1];
+    }
+};
+
+int maximumActivities(vector<int> &start, vector<int> &finish) {
+    // Write your code here.
+    vector<vector<int>> vp;
+    int n= start.size();
+    for(int i=0; i<n; i++)
+    {
+        vp.push_back({start[i], finish[i], i+1});
+    }
+    sort(vp.begin(), vp.end(), Comparator<vector<int>>());
+    int ans= 1;
+    int endTime= vp[0][1];
+    for(int i=1; i<n; i++)
+    {
+        if(endTime <= vp[i][0])
+        {
+            ans++;
+            endTime= vp[i][1];
+        }
+    }
+    return ans;
+}
