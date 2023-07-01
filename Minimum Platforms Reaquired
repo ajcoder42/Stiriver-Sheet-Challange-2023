@@ -1,0 +1,26 @@
+// coding ninjas studio solutions
+
+int calculateMinPatforms(int at[], int dt[], int n) {
+    // Write your code here.
+    sort(at, at+n);
+    sort(dt, dt+n);
+    int i=0, j=1;
+    int platformsOccupied= 1;
+    int maxPlatformsRequired= 1;
+    while(j<n)
+    {
+        if(dt[i] >= at[j])
+        {
+            platformsOccupied++;
+            j++;
+        }
+        else
+        {
+            platformsOccupied--;
+            i++;
+        }
+        if(maxPlatformsRequired < platformsOccupied)
+        maxPlatformsRequired= platformsOccupied;
+    }
+    return maxPlatformsRequired;
+}
