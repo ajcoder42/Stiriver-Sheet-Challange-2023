@@ -1,0 +1,94 @@
+// coding ninjas studio solution
+
+#include <bits/stdc++.h>
+
+/************************************************************
+
+    Following is the linked list node structure.
+    
+    template <typename T>
+    class Node {
+        public:
+        T data;
+        Node* next;
+
+        Node(T data) {
+            next = NULL;
+            this->data = data;
+        }
+
+        ~Node() {
+            if (next != NULL) {
+                delete next;
+            }
+        }
+    };
+
+************************************************************/
+
+Node<int>* sortTwoLists(Node<int>* first, Node<int>* second)
+{
+    // Write your code here.
+    if(!first) return second;
+    if(!second) return first;
+
+    // Node<int>* dummy1= first;
+    // Node<int>* dummy2= second;
+    // Node<int>* head= new Node<int>(-1);
+    // Node<int>* temp= head;
+    // while(dummy1 && dummy2)
+    // {
+    //     if(dummy1->data <= dummy2->data)
+    //     {
+    //         temp->next= new Node<int>(dummy1->data);
+    //         dummy1= dummy1->next;
+    //         temp= temp->next;
+    //         continue;
+    //     }
+    //     temp->next= new Node<int>(dummy2->data);
+    //     dummy2= dummy2->next;
+    //     temp= temp->next;
+    // }
+
+    // while(dummy1)
+    // {
+    //     temp->next= new Node<int>(dummy1->data);
+    //     dummy1= dummy1->next;
+    //     temp= temp->next;
+    // }
+
+    // while(dummy2)
+    // {
+    //     temp->next= new Node<int>(dummy2->data);
+    //     dummy2= dummy2->next;
+    //     temp= temp->next;
+    // }
+    // return head->next;
+
+    //In-Place Method
+    
+    if(first->data > second->data)
+    {
+        Node<int>* temp= first;
+        first= second;
+        second= temp;
+    }
+    
+    Node<int>* head= first;
+    while(first && second)
+    {
+        Node<int>* temp= NULL;
+        while(first && second->data >= first->data)
+        {
+            temp= first;
+            first= first->next;
+        }
+        temp->next= second;
+
+        Node<int>* ptr= first;
+        first= second;
+        second= ptr;
+    }
+
+    return head;
+}
