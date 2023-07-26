@@ -1,0 +1,30 @@
+//Coding Ninjas Studio Solution
+
+#include <bits/stdc++.h> 
+
+void f(int idx, int n, vector<int> &temp, vector<int> &arr, set<vector<int>> &S)
+{
+    if(idx==n) 
+    {
+        S.insert(temp);
+        return;
+    }
+    temp.push_back(arr[idx]);
+    f(idx+1, n, temp, arr, S);
+    temp.pop_back();
+    f(idx+1, n, temp, arr, S);
+}
+vector<vector<int>> uniqueSubsets(int n, vector<int> &arr)
+{
+    // Write your code here.
+    sort(arr.begin(), arr.end());
+    set<vector<int>> S;
+    vector<int> temp;
+    f(0, n, temp, arr, S);
+    vector<vector<int>> ans;
+    for(auto i: S)
+    {
+        ans.push_back(i);
+    }
+    return ans;
+}
